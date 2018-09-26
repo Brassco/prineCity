@@ -11,6 +11,8 @@ import LoginScreen from '../components/Auth/Login';
 import RegisterScreen from '../components/Auth/Register';
 import ListComponent from '../components/Locations/List';
 import Restaurants from '../components/Restaurants/Restaurants';
+import Details from '../components/Restaurants/Details';
+import Menu from '../components/Restaurants/Menu';
 
 const middleware = createReactNavigationReduxMiddleware(
     'root',
@@ -22,6 +24,8 @@ const RootNavigator = createStackNavigator({
     Login: { screen: LoginScreen },
     Main: { screen: ListComponent},
     Restaurants: { screen: Restaurants},
+    Details: { screen: Details},
+    Menu: { screen: Menu},
 });
 
 const AppWithNavigationState = reduxifyNavigator(RootNavigator, 'root');

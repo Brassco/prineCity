@@ -61,6 +61,7 @@ class Restaurants extends Component {
                     data={this.state.data}
                     renderItem={() => {
                       return (<ListItem
+                          onPress={this.openRestaurantInfo}
                           roundAvatar
                           title={'title'}
                           avatar={require('../../img/rest-icon.png')}

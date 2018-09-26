@@ -40,6 +40,18 @@ function nav(state = initialNavState, action) {
                 state
             );
             break;
+        case 'RestaurantInfo':
+            nextState = RootNavigator.router.getStateForAction(
+                NavigationActions.navigate({ routeName: 'Details' }),
+                state
+            );
+            break;
+        case 'Menu':
+            nextState = RootNavigator.router.getStateForAction(
+                NavigationActions.navigate({ routeName: 'Menu' }),
+                state
+            );
+            break;
         default:
             nextState = RootNavigator.router.getStateForAction(action, state);
             break;

@@ -19,7 +19,12 @@ const Header = (props) => {
                 </TouchableWithoutFeedback>
             </View>
             <View style={titleContainer}>
-                <Text>
+                <Text style={{
+                    fontSize: 15,
+                    fontWeight: '300',
+                    fontFamily: 'Ubuntu-Light',
+                    color: '#fff'
+                }}>
                     {props.title}
                 </Text>
             </View>

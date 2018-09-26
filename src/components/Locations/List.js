@@ -15,22 +15,21 @@ class List extends Component {
         super();
         this.state = {
             error: null,
-            data: [
+            districts: [
                 {
-                    "name": "Proxima Midnight",
-                    "id": "proxima@appdividend.com"
+                    "id": "1",
+                    "name": "District #1",
+                    "logo": '../../img/loc-img.png'
                 },
                 {
-                    "name": "Ebony Maw",
-                    "id": "ebony@appdividend.com"
+                    "id": "2",
+                    "name": "District #2",
+                    "logo": '../../img/loc-img.png'
                 },
                 {
-                    "name": "Black Dwarf",
-                    "id": "dwarf@appdividend.com"
-                },
-                {
-                    "name": "Mad Titan",
-                    "id": "thanos@appdividend.com"
+                    "id": "3",
+                    "name": "District #3",
+                    "logo": '../../img/loc-img.png'
                 },
             ]
         };
@@ -57,12 +56,12 @@ class List extends Component {
                     width: '100%',
                 }}
                     keyExtractor={item => item.id}
-                    data={this.state.data}
-                    renderItem={() => {
+                    data={this.state.districts}
+                    renderItem={({item}) => {
                         return (<ListItem
                             onPress={this.openRestaurantsList}
                             roundAvatar
-                            title={'title'}
+                            title={item.name}
                             avatar={require('../../img/loc-img.png')}
                         /> )
                     }}
