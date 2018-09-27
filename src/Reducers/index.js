@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux';
 import AuthReducer from './AuthReducer';
 import RegisterReducer from './RegisterReducer';
+import LocationsReducer from './LocationsReducer';
 import RestaurantsReducer from './RestaurantsReducer';
 import { NavigationActions } from 'react-navigation';
 import { RootNavigator } from '../navigators/AppNavigator';
@@ -52,6 +53,12 @@ function nav(state = initialNavState, action) {
                 state
             );
             break;
+        case 'Feedbacks':
+            nextState = RootNavigator.router.getStateForAction(
+                NavigationActions.navigate({ routeName: 'Feedbacks' }),
+                state
+            );
+            break;
         default:
             nextState = RootNavigator.router.getStateForAction(action, state);
             break;
@@ -65,5 +72,6 @@ export default combineReducers({
     auth: AuthReducer,
     register: RegisterReducer,
     restaurants: RestaurantsReducer,
+    locations: LocationsReducer,
     nav: nav,
 })

@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import {View, Text, FlatList} from 'react-native';
 import {Container, Header} from '../common';
-import { ListItem } from "react-native-elements"
-import {getRestaurantsList} from '../../Actions/RestaurantsActions';
+import { ListItem } from "react-native-elements";
+import {getLocation} from '../../Actions/RestaurantsActions';
 import {connect} from 'react-redux';
+import {BASE_URL} from '../../urls';
+import {NavigationActions} from 'react-navigation';
 
 class List extends Component {
 
@@ -36,16 +38,20 @@ class List extends Component {
         this.openRestaurantsList = this.openRestaurantsList.bind(this)
     }
 
-    openRestaurantsList(){
-        this.props.navigation.dispatch({ type: 'Restaurants' })
+    openRestaurantsList(district){
+        this.props.navigation.dispatch(
+            NavigationActions.navigate({ routeName: 'Restaurants', params: { district_id: district.id, district_name: district.name } })
+            // { type: 'Restaurants'}, {params:  {district_id: id }}
+            )
     }
 
     componentDidMount() {
-        let {token, getRestaurantsList} = this.props;
-        getRestaurantsList(token);
+        let {token, getLocation} = this.props;
+        getLocation(token);
     }
 
     render() {
+        console.log('render restaurants', this.props.locations)
         return (
             <Container>
                 <Header
@@ -55,14 +61,16 @@ class List extends Component {
                     style={{
                     width: '100%',
                 }}
-                    keyExtractor={item => item.id}
-                    data={this.state.districts}
+                    keyExtractor={item => item.id.toString()}
+                    data={this.props.locations}
                     renderItem={({item}) => {
+                        console.log(item)
+                        let imgSrc = BASE_URL + item.logo;
                         return (<ListItem
-                            onPress={this.openRestaurantsList}
+                            onPress={() => this.openRestaurantsList(item)}
                             roundAvatar
                             title={item.name}
-                            avatar={require('../../img/loc-img.png')}
+                            avatar={{uri: imgSrc}}
                         /> )
                     }}
                 />
@@ -71,16 +79,15 @@ class List extends Component {
     }
 }
 
-const mapStateToProps = ({auth, restaurants}) => {
-    console.log(auth, restaurants);
+const mapStateToProps = ({auth, locations}) => {
     return {
         token: auth.token,
         user: auth.user,
-        loading: restaurants.loading,
-        error: restaurants.error,
-        restaurants: restaurants.restaurants,
+        loading: locations.loading,
+        error: locations.error,
+        locations: locations.locations.districts,
     }
 }
 
 
-export default connect(mapStateToProps, {getRestaurantsList})(List);
+export default connect(mapStateToProps, {getLocation})(List);

@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
-import {FlatList, View, Text, Image, Dimensions} from 'react-native';
+import {FlatList, View, Text, ActivityIndicator, Image, Dimensions, TouchableOpacity} from 'react-native';
 import {Container, Header} from '../common';
 import { ListItem } from "react-native-elements"
+import {connect} from 'react-redux';
+import {getRestaurantsInfo} from '../../Actions/RestaurantsActions';
+import {BASE_URL} from '../../urls';
 
 let {width, height} = Dimensions.get('window');
 
@@ -48,100 +51,119 @@ class Details extends Component {
         };
     }
 
+    componentDidMount() {
+        let {token, getRestaurantsInfo, navigation} = this.props;
+console.log(navigation.state.params.id);
+        getRestaurantsInfo(token, navigation.state.params.id);
+    }
+
+    openFeedbacks = () => {
+        this.props.navigation.dispatch({ type: 'Feedbacks' })
+    }
+
     openMenu = () => {
         this.props.navigation.dispatch({ type: 'Menu' })
     }
 
     render() {
-        let {
-            feedbackText, feedbackCounter,
-            ratingCounterContainer, ratingText,
-            textContainer, titleTextContainer,
-            titleText
-        } = styles;
-        return (
-            <Container>
-                <Header
-                    onBackPressed={() => this.props.navigation.goBack()}
-                    title={'restaurant info'}
-                />
-                <View style={{
-                    width: '100%',
-                    height: height*0.3,
-                    // backgroundColor: '#386'
-                }}>
-                    <Image
-                        resizeMode={'stretch'}
-                        style={{
-                            width: width,
-                            height: height*0.3,
-                        }}
-                        source={require('../../img/rest-img.png')}
+        if (this.props.restaurant) {
+            let {restaurant} = this.props;
+            let imgSrc = BASE_URL + restaurant.background_image;
+console.log(imgSrc, restaurant);
+            let {
+                feedbackText, feedbackCounter,
+                ratingCounterContainer, ratingText,
+                textContainer, titleTextContainer,
+                titleText
+            } = styles;
+            return (
+                <Container>
+                    <Header
+                        onBackPressed={() => this.props.navigation.goBack()}
+                        title={restaurant.name}
                     />
-                </View>
-                <View style={{
-                    width: '100%',
-                    height: 50,
-                    flexDirection: 'row',
-                    justifyContent: 'flex-end',
-                    alignItems: 'center',
-                }}>
                     <View style={{
+                        width: '100%',
+                        height: height*0.3,
+                        // backgroundColor: '#386'
+                    }}>
+                        <Image
+                            resizeMode={'stretch'}
+                            style={{
+                                width: width,
+                                height: height*0.3,
+                            }}
+                            source={{uri: imgSrc}}
+                        />
+                    </View>
+                    <View style={{
+                        width: '100%',
+                        height: 50,
                         flexDirection: 'row',
                         justifyContent: 'flex-end',
                         alignItems: 'center',
                     }}>
-                        <View style={textContainer}>
-                            <Text style={feedbackText}>
-                                Отзывы
-                            </Text>
-                            <Text style={feedbackCounter}>
-                                (32)
-                            </Text>
-                        </View>
-                        <View style={[
-                            textContainer,{
-                            paddingLeft: 5,
-                            paddingRight: 10,
-                        }]}>
-                            <Text style={ratingText}>
-                                Рейтинг
-                            </Text>
-                            <View style={ratingCounterContainer}>
-                                <Text style={ratingText}>
-                                    4.2
+                        <View style={{
+                            flexDirection: 'row',
+                            justifyContent: 'flex-end',
+                            alignItems: 'center',
+                        }}>
+                            <TouchableOpacity
+                                onPress={this.openFeedbacks}
+                                style={textContainer}>
+                                <Text style={feedbackText}>
+                                    Отзывы
                                 </Text>
+                                <Text style={feedbackCounter}>
+                                    ({restaurant.reviews_count})
+                                </Text>
+                            </TouchableOpacity>
+                            <View style={[
+                                textContainer,{
+                                paddingLeft: 5,
+                                paddingRight: 10,
+                            }]}>
+                                <Text style={ratingText}>
+                                    Рейтинг
+                                </Text>
+                                <View style={ratingCounterContainer}>
+                                    <Text style={ratingText}>
+                                        {restaurant.rating}
+                                    </Text>
+                                </View>
                             </View>
                         </View>
                     </View>
-                </View>
-                <View style={titleTextContainer}>
-                    <Text style={titleText}>
-                        Меню
-                    </Text>
-                </View>
-                <FlatList
-                    style={{
-                        width: '100%',
-                    }}
-                    keyExtractor={item => item.email}
-                    data={this.state.data}
-                    renderItem={() => {
-                        return (<ListItem
-                            onPress={this.openMenu}
-                            roundAvatar
-                            hideChevron={true}
-                            avatarStyle={{
-                                width: 40,
-                                height: 40,
-                            }}
-                            title={'title'}
-                            avatar={require('../../img/rest-icon.png')}
-                        /> )
-                    }}
-                />
-            </Container>
-        )
+                    <View style={titleTextContainer}>
+                        <Text style={titleText}>
+                            Меню
+                        </Text>
+                    </View>
+                    <FlatList
+                        style={{
+                            width: '100%',
+                        }}
+                        keyExtractor={item => item.email}
+                        data={this.state.data}
+                        renderItem={() => {
+                            return (<ListItem
+                                onPress={this.openMenu}
+                                roundAvatar
+                                hideChevron={true}
+                                avatarStyle={{
+                                    width: 40,
+                                    height: 40,
+                                }}
+                                title={'title'}
+                                avatar={require('../../img/rest-icon.png')}
+                            /> )
+                        }}
+                    />
+                </Container>
+            )
+        } else {
+            return <ActivityIndicator />
+        }
     }
 }
 
@@ -193,4 +215,14 @@ let styles = {
     }
 }
 
-export default Details;
+const mapStateToProps = ({auth, restaurants}) => {
+    return {
+        token: auth.token,
+        user: auth.user,
+        loading: restaurants.loading,
+        error: restaurants.error,
+        restaurant: restaurants.restaurant.restaurant,
+    }
+}
+
+export default connect(mapStateToProps, {getRestaurantsInfo})(Details);

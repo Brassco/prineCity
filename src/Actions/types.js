@@ -18,4 +18,10 @@ export const REGISTER_ERROR = 'register_error';
 
 /*LOCATION*/
 export const LOCATION_LIST_LOADING = 'location_list';
-export const LOCATION_LIST_LOADING_SUCCESS = 'location_list_Lloading_success';
+export const LOCATION_LIST_LOADING_SUCCESS = 'location_list_loading_success';
+
+/*RESTAURANTS*/
+export const RESTAURANTS_LIST_LOADING = 'restaurants_list_loading';
+export const RESTAURANTS_LIST_LOADING_SUCCESS = 'restaurants_list_loading_success';
+export const RESTAURANTS_INFO_LOADING = 'restaurants_info_loading';
+export const RESTAURANTS_INFO_LOADING_SUCCESS = 'restaurants_info_loading_success';
