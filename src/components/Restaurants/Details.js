@@ -228,7 +228,6 @@ let styles = {
 }
 
 const mapStateToProps = ({auth, restaurants}) => {
-console.log(restaurants);
     return {
         token: auth.token,
         user: auth.user,
