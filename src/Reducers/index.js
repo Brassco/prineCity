@@ -3,15 +3,13 @@ import AuthReducer from './AuthReducer';
 import RegisterReducer from './RegisterReducer';
 import LocationsReducer from './LocationsReducer';
 import RestaurantsReducer from './RestaurantsReducer';
+import MenuReducer from './MenuReducer';
 import { NavigationActions } from 'react-navigation';
 import { RootNavigator } from '../navigators/AppNavigator';
 
-const firstAction = RootNavigator.router.getActionForPathAndParams('Register');
-const tempNavState = RootNavigator.router.getStateForAction(firstAction);
-// const secondAction = RootNavigator.router.getActionForPathAndParams('Login');
+const firstAction = RootNavigator.router.getActionForPathAndParams('AuthLoading');
 const initialNavState = RootNavigator.router.getStateForAction(
     firstAction,
-    // tempNavState
 );
 
 function nav(state = initialNavState, action) {
@@ -19,7 +17,7 @@ function nav(state = initialNavState, action) {
     switch (action.type) {
         case 'Register':
             nextState = RootNavigator.router.getStateForAction(
-                NavigationActions.navigate({ routeName: 'Login' }),
+                NavigationActions.navigate({ routeName: 'Register' }),
                 state
             );
             break;
@@ -73,5 +71,6 @@ export default combineReducers({
     register: RegisterReducer,
     restaurants: RestaurantsReducer,
     locations: LocationsReducer,
+    menu: MenuReducer,
     nav: nav,
 })

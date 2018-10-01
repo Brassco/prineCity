@@ -8,6 +8,7 @@ import {connect} from 'react-redux';
 import { Button} from "react-native-elements"
 import {Container, TextInputContainer} from '../common';
 import {onChangeName, onChangePhone, onChangeEmail, onChangeCode, onRegister} from '../../Actions/RegisterActions';
+import {onLogin} from '../../Actions/AuthActions';
 
 let {width, height} = Dimensions.get('window');
 
@@ -21,12 +22,14 @@ class Register extends Component {
         super();
         this.state = {
             error: null,
+            displayButton: 'none'
         };
         this.onChangeName = this.onChangeName.bind(this)
         this.onChangePhone = this.onChangePhone.bind(this)
         this.onChangeEmail = this.onChangeEmail.bind(this)
         this.onChangeCode = this.onChangeCode.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
+        this.onRegister = this.onRegister.bind(this)
         this.onRegisterSuccess = this.onRegisterSuccess.bind(this)
     }
 
@@ -46,15 +49,27 @@ class Register extends Component {
         this.props.onChangeCode(code)
     }
 
-    onSubmit() {
+    onRegister() {
         let {phone, name, email} = this.props;
         let data = {
             phone_number: phone,
             email: email,
             name: name
         }
-        this.props.onRegister(data, this.onRegisterSuccess);
+        this.setState({
+            displayButton: 'flex'
+        })
+        this.props.onRegister(data);
         // this.props.navigation.dispatch({ type: 'Login' })
+    }
+
+    onSubmit() {
+        let {phone, smsCode, onLogin} = this.props;
+        let data = {
+            phone_number: phone,
+            password: smsCode
+        }
+        onLogin(data, this.onRegisterSuccess);
     }
 
     onRegisterSuccess() {
@@ -72,7 +87,7 @@ class Register extends Component {
                     loadingProps={{ size: "large", color: "rgba(111, 202, 186, 1)" }}
                     titleStyle={{ fontWeight: "600" }}
                     buttonStyle={styles.buttonStyle}
-                    onPress={this.onSubmit}
+                    onPress={this.props.code ? this.onSubmit : this.onRegister}
                 />
             )
         }
@@ -85,6 +100,7 @@ class Register extends Component {
             loginTextContainer, titleText,
             errorTextContainer, errorText, loginText
         } = styles;
+        console.log('render', this.props)
         return (
             <Container style={{
                 justifyContent: 'space-between'
@@ -129,13 +145,19 @@ class Register extends Component {
                             onChangeText={this.onChangeEmail}
                             value={this.props.email}
                         />
-                        <View style={infoTextContainer}>
+                        <View
+                            display={this.props.code ? 'flex' : 'none'}
+                            style={infoTextContainer}
+                        >
                             <Text style={infoText}>
                                 Код отправленый вам в смс сообщении
                             </Text>
                         </View>
                         <TextInputContainer
+                            display={this.props.code ? 'flex' : 'none'}
                             placeholder=""
+                            onChangeText={this.onChangeCode}
+                            value={this.props.smsCode}
                         />
                     </View>
                     <View style={loginTextContainer}>
@@ -146,7 +168,7 @@ class Register extends Component {
                             onPress={() => this.props.navigation.dispatch({ type: 'Logout' })}
                         >
                             <Text style={loginText}>
-                                Login
+                                Войти
                             </Text>
                         </TouchableWithoutFeedback>
                     </View>
@@ -257,6 +279,8 @@ const mapStateToProps = ({register}) => {
         email: register.email,
         error: register.error,
         loading: register.loading,
+        code: register.code,
+        smsCode: register.smsCode,
     }
 }
 
@@ -266,5 +290,6 @@ export default connect(
         onChangePhone,
         onChangeEmail,
         onChangeCode,
-        onRegister
+        onRegister,
+        onLogin
     })(Register);

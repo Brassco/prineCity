@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import {View, Text, FlatList} from 'react-native';
 import {Container, Header} from '../common';
 import { ListItem } from "react-native-elements"
+import {getRestaurantsMenu} from '../../Actions/RestaurantsActions';
+import {connect} from 'react-redux';
+import {NavigationActions} from 'react-navigation';
 
 class Menu extends Component {
 
@@ -32,9 +35,22 @@ class Menu extends Component {
                 },
             ]
         };
+        this.onError = this.onError.bind(this)
+    }
+
+    componentDidMount() {
+        let {getRestaurantsMenu, token, categoryId} = this.props;
+        getRestaurantsMenu(token, categoryId, this.onError);
+    }
+
+    onError() {
+        this.props.navigation.dispatch(
+            NavigationActions.navigate({ routeName: 'Login'})
+        )
     }
 
     render () {
+        console.log('render menu', this.props);
         let {titleTextContainer, titleText, orderText} = styles;
         return (
             <Container>
@@ -44,7 +60,7 @@ class Menu extends Component {
                 />
                 <View style={titleTextContainer}>
                     <Text style={titleText}>
-                        Салаты и закуски
+                        {this.props.navigation.state.params.category.name}
                     </Text>
                 </View>
                 <FlatList
@@ -52,8 +68,8 @@ class Menu extends Component {
                         width: '100%',
                     }}
                     keyExtractor={item => item.id}
-                    data={this.state.data}
-                    renderItem={() => {
+                    data={this.props.menu}
+                    renderItem={({item}) => {
                         return (<ListItem
                             roundAvatar
                             hideChevron
@@ -66,8 +82,12 @@ class Menu extends Component {
                             }}
                             title={
                                 <View style={{marginLeft: 20}}>
-                                    <Text>Хумус класический</Text>
-                                    <Text style={styles.subtitleText}>350 грамм</Text>
+                                    <Text>
+                                        {item.name}
+                                    </Text>
+                                    <Text style={styles.subtitleText}>
+                                        {item.weight}
+                                    </Text>
                                 </View>
                             }
                             subtitle={
@@ -99,7 +119,7 @@ class Menu extends Component {
                                             color: '#b92320',
                                             margin: 3
                                         }}>
-                                            350
+                                            {item.price}
                                         </Text>
                                         <Text>$</Text>
                                     </View>
@@ -138,4 +158,14 @@ const styles = {
     }
 }
 
-export default Menu;
+const mapStateToProps= ({auth, menu}) => {
+    return {
+        token: auth.token,
+        user: auth.user,
+        loading: menu.loading,
+        error: menu.error,
+        menu: menu.menu,
+    }
+}
+
+export default connect(mapStateToProps, {getRestaurantsMenu})(Menu);

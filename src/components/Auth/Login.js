@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, Image, Dimensions,
-    ScrollView, ActivityIndicator} from 'react-native';
+    ScrollView, ActivityIndicator, TouchableWithoutFeedback} from 'react-native';
 import {Container, TextInputContainer} from '../common';
 import {connect} from 'react-redux';
 import {onChangePhone, onChangePass, onLogin} from '../../Actions/AuthActions';
@@ -71,7 +71,7 @@ class Login extends Component {
     }
 
     render() {
-        let {titleTextContainer, titleText} = styles;
+        let {titleTextContainer, titleText, registerText, registerTextContainer} = styles;
         return (
             <Container>
                 <ScrollView
@@ -141,6 +141,18 @@ class Login extends Component {
                             </Text>
                         </View>
                     }
+                    <View style={registerTextContainer}>
+                        <Text>
+                            Еще нету аккаунта?
+                        </Text>
+                        <TouchableWithoutFeedback
+                            onPress={() => this.props.navigation.dispatch({ type: 'Register' })}
+                        >
+                            <Text style={registerText}>
+                                Зарегистрироваться
+                            </Text>
+                        </TouchableWithoutFeedback>
+                    </View>
                     { this.renderButton()}
                 </ScrollView>
             </Container>
@@ -176,7 +188,20 @@ const styles = {
         backgroundColor: '#fe5500',
         justifyContent: 'center',
         alignItems: 'center',
-    }
+    },
+    registerText: {
+        marginLeft: 5,
+        fontWeight: '500',
+        fontSize: 15,
+        color: '#2199d8',
+    },
+    registerTextContainer: {
+        height: 30,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        // backgroundColor: '#723',
+    },
 }
 
 const mapStateToProps = ({auth}) => {

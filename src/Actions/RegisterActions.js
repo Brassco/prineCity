@@ -38,7 +38,7 @@ export const onChangeCode = (code) => {
     }
 }
 
-export const onRegister = (data, successCallback) => {
+export const onRegister = (data) => {
     return (dispatch) => {
 
         if (data.name.length < 1) {
@@ -83,7 +83,7 @@ export const onRegister = (data, successCallback) => {
                 .then((responseJson) => {
                 console.log(responseJson)
                     if (responseJson) {
-                        onRegisterSuccess(dispatch, responseJson.data, successCallback);
+                        onRegisterSuccess(dispatch, responseJson.data);
                     } else {
                         onError(dispatch, 'Ошибка')
                     }
@@ -93,12 +93,13 @@ export const onRegister = (data, successCallback) => {
     }
 }
 
-const onRegisterSuccess = (dispatch, data, successCallback) => {
+const onRegisterSuccess = (dispatch, data) => {
+    console.log(data);
     dispatch({
         type: REGISTER_SUCCESS,
         payload: data
     })
-    successCallback();
+    // successCallback();
 }
 
 const onError = (dispatch, errMessage) => {

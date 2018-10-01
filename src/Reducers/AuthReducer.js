@@ -3,7 +3,8 @@ import {
     AUTH_CHANGE_PASS,
     AUTH_SIGN_IN_START,
     AUTH_SIGN_IN_SUCCESS,
-    AUTH_SIGN_IN_FAIL
+    AUTH_SIGN_IN_FAIL,
+    AUTH_LOGOUT
 } from '../Actions/types';
 
 const INITIAL_STATE = {
@@ -42,6 +43,15 @@ export default (state = INITIAL_STATE, action) => {
                 loading: false,
                 user: action.payload.client,
                 token: action.payload.auth_token
+            };
+        case AUTH_LOGOUT:
+            return {...state,
+                error: false,
+                loading: false,
+                user: null,
+                token: null,
+                phone: '',
+                password: '',
             };
         default: return state;
     }

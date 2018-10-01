@@ -4,6 +4,7 @@ export const AUTH_CHANGE_PASS = 'auth_change_pass';
 export const AUTH_SIGN_IN_START = 'auth_sign_in_start';
 export const AUTH_SIGN_IN_SUCCESS = 'auth_sign_in_success';
 export const AUTH_SIGN_IN_FAIL = 'auth_sign_in_fail';
+export const AUTH_LOGOUT = 'auth_logout';
 
 /*REGISTER*/
 export const SEND_SMS = 'send_sms';
@@ -25,3 +26,7 @@ export const RESTAURANTS_LIST_LOADING = 'restaurants_list_loading';
 export const RESTAURANTS_LIST_LOADING_SUCCESS = 'restaurants_list_loading_success';
 export const RESTAURANTS_INFO_LOADING = 'restaurants_info_loading';
 export const RESTAURANTS_INFO_LOADING_SUCCESS = 'restaurants_info_loading_success';
+
+/*MENU*/
+export const RESTAURANTS_MENU_LOADED = 'restaurants_menu_loaded';
+export const RESTAURANTS_MENU_LOADING = 'restaurants_menu_loading';

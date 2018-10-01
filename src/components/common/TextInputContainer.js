@@ -1,9 +1,11 @@
 import React from 'react';
 import {View, TextInput} from 'react-native';
 
-const TextInputContainer = ({placeholder, onChangeText, value, type}) => {
+const TextInputContainer = ({placeholder, onChangeText, value, type, display}) => {
     return (
-        <View style={{
+        <View
+            display={display}
+            style={{
             flex: 1,
             width: '100%',
             // backgroundColor: '#786',

@@ -6,8 +6,9 @@ import {
 } from '../Actions/types';
 
 const INITIAL_STATE = {
-    restaurants: '',
-    restaurant: '',
+    restaurants: [],
+    restaurant: null,
+    categories: [],
     error: false,
     loading: false,
 }
@@ -35,7 +36,8 @@ console.log('RESTAURANTS_LIST_LOADING_SUCCESS', action.payload);
             return {...state,
                 error: false,
                 loading: false,
-                restaurant: action.payload
+                restaurant: action.payload.info.restaurant,
+                categories: action.payload.categories.categories
             };
         default: return state;
     }

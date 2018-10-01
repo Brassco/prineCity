@@ -7,6 +7,8 @@ const Header = (props) => {
     } = styles;
     return (
         <View style={container}>
+            {
+                props.onBackPressed &&
             <View style={imageContainer}>
                 <TouchableWithoutFeedback
                     onPress={props.onBackPressed}
@@ -18,6 +20,7 @@ const Header = (props) => {
                     />
                 </TouchableWithoutFeedback>
             </View>
+            }
             <View style={titleContainer}>
                 <Text style={{
                     fontSize: 15,

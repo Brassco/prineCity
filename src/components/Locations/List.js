@@ -17,25 +17,9 @@ class List extends Component {
         super();
         this.state = {
             error: null,
-            districts: [
-                {
-                    "id": "1",
-                    "name": "District #1",
-                    "logo": '../../img/loc-img.png'
-                },
-                {
-                    "id": "2",
-                    "name": "District #2",
-                    "logo": '../../img/loc-img.png'
-                },
-                {
-                    "id": "3",
-                    "name": "District #3",
-                    "logo": '../../img/loc-img.png'
-                },
-            ]
         };
         this.openRestaurantsList = this.openRestaurantsList.bind(this)
+        this.onError = this.onError.bind(this)
     }
 
     openRestaurantsList(district){
@@ -45,9 +29,15 @@ class List extends Component {
             )
     }
 
+    onError() {
+        this.props.navigation.dispatch(
+            NavigationActions.navigate({ routeName: 'Login'})
+        )
+    }
+
     componentDidMount() {
         let {token, getLocation} = this.props;
-        getLocation(token);
+        getLocation(token, this.onError);
     }
 
     render() {

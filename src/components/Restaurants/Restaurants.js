@@ -44,17 +44,24 @@ class Restaurants extends Component {
                 }
             ]
         };
+        this.onError = this.onError.bind(this);
     }
 
     componentDidMount() {
         let {token, getRestaurantsList, navigation} = this.props;
         console.log(navigation.state.params.district_id);
-        getRestaurantsList(token, navigation.state.params.district_id);
+        getRestaurantsList(token, navigation.state.params.district_id, this.onError);
     }
 
     openRestaurantInfo = (id) => {
         this.props.navigation.dispatch(
             NavigationActions.navigate({ routeName: 'Details', params: { id: id } })
+        )
+    }
+
+    onError() {
+        this.props.navigation.dispatch(
+            NavigationActions.navigate({ routeName: 'Login'})
         )
     }
 

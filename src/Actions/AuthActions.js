@@ -6,8 +6,7 @@ import {
     AUTH_SIGN_IN_FAIL
 } from './types';
 import {HEADER_HOST, SIGN_IN} from '../urls';
-import FormData from 'form-data'
-import Querystring from 'querystring';
+import {AsyncStorage} from 'react-native';
 
 export const onChangePhone = (phone) => {
     return {
@@ -76,7 +75,10 @@ const onLoginSuccess = (dispatch, data, successCallback) => {
         type: AUTH_SIGN_IN_SUCCESS,
         payload: data
     })
-    successCallback();
+console.log('onLogin syccess', JSON.stringify(data));
+    AsyncStorage.setItem('@user', JSON.stringify(data)).then(
+        successCallback()
+    )
 }
 
 const onLoginFail = (dispatch, errMessage) => {
@@ -84,5 +86,13 @@ console.log('onLoginFail');
     dispatch({
         type: AUTH_SIGN_IN_FAIL,
         payload: errMessage
+    })
+}
+
+export const setUserFromStore = (data) => {
+    console.log('setUserFromStore', JSON.parse(data))
+    return ({
+        type: AUTH_SIGN_IN_SUCCESS,
+        payload: JSON.parse(data)
     })
 }

@@ -5,6 +5,7 @@ import { ListItem } from "react-native-elements"
 import {connect} from 'react-redux';
 import {getRestaurantsInfo} from '../../Actions/RestaurantsActions';
 import {BASE_URL} from '../../urls';
+import {NavigationActions} from 'react-navigation';
 
 let {width, height} = Dimensions.get('window');
 
@@ -49,23 +50,33 @@ class Details extends Component {
                 }
             ]
         };
+        this.onError = this.onError.bind(this);
     }
 
     componentDidMount() {
         let {token, getRestaurantsInfo, navigation} = this.props;
 console.log(navigation.state.params.id);
-        getRestaurantsInfo(token, navigation.state.params.id);
+        getRestaurantsInfo(token, navigation.state.params.id, this.onError);
     }
 
     openFeedbacks = () => {
         this.props.navigation.dispatch({ type: 'Feedbacks' })
     }
 
-    openMenu = () => {
-        this.props.navigation.dispatch({ type: 'Menu' })
+    openMenu = (category) => {
+        this.props.navigation.dispatch(
+            NavigationActions.navigate({ routeName: 'Menu',  params: { category: category} })
+        )
+    }
+
+    onError() {
+        this.props.navigation.dispatch(
+            NavigationActions.navigate({ routeName: 'Login'})
+        )
     }
 
     render() {
+console.log('render details', this.props);
         if (this.props.restaurant) {
             let {restaurant} = this.props;
             let imgSrc = BASE_URL + restaurant.background_image;
@@ -143,19 +154,20 @@ console.log(imgSrc, restaurant);
                         style={{
                             width: '100%',
                         }}
-                        keyExtractor={item => item.email}
-                        data={this.state.data}
-                        renderItem={() => {
+                        keyExtractor={item => item.id.toString()}
+                        data={this.props.categories}
+                        renderItem={({item}) => {
+                            let catImgSrc = BASE_URL + item.image;
                             return (<ListItem
-                                onPress={this.openMenu}
+                                onPress={() => this.openMenu(item)}
                                 roundAvatar
                                 hideChevron={true}
                                 avatarStyle={{
                                     width: 40,
                                     height: 40,
                                 }}
-                                title={'title'}
-                                avatar={require('../../img/rest-icon.png')}
+                                title={item.name}
+                                avatar={{uri: catImgSrc}}
                             /> )
                         }}
                     />
@@ -216,12 +228,14 @@ let styles = {
 }
 
 const mapStateToProps = ({auth, restaurants}) => {
+console.log(restaurants);
     return {
         token: auth.token,
         user: auth.user,
         loading: restaurants.loading,
         error: restaurants.error,
-        restaurant: restaurants.restaurant.restaurant,
+        restaurant: restaurants.restaurant,
+        categories: restaurants.categories,
     }
 }
 

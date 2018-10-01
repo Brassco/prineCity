@@ -6,6 +6,7 @@ import {
     reduxifyNavigator,
     createReactNavigationReduxMiddleware,
 } from 'react-navigation-redux-helpers';
+import {AsyncStorage} from 'react-native';
 
 import LoginScreen from '../components/Auth/Login';
 import RegisterScreen from '../components/Auth/Register';
@@ -14,6 +15,7 @@ import Restaurants from '../components/Restaurants/Restaurants';
 import Details from '../components/Restaurants/Details';
 import Menu from '../components/Restaurants/Menu';
 import FeedbacksList from '../components/Feedbacks/FeedbacksList';
+import AuthLoadingScreen from '../components/AuthLoadingScreen';
 
 const middleware = createReactNavigationReduxMiddleware(
     'root',
@@ -21,6 +23,7 @@ const middleware = createReactNavigationReduxMiddleware(
 );
 
 const RootNavigator = createStackNavigator({
+    AuthLoading: { screen: AuthLoadingScreen },
     Register: { screen: RegisterScreen },
     Login: { screen: LoginScreen },
     Main: { screen: ListComponent},

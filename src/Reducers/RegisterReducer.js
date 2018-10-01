@@ -3,7 +3,8 @@ import {
     REGISTER_CHANGE_PHONE,
     REGISTER_CHANGE_EMAIL,
     REGISTER_SUCCESS,
-    REGISTER_ERROR
+    REGISTER_ERROR,
+    REGISTER_CHANGE_CODE
 } from '../Actions/types';
 
 const INITIAL_STATE = {
@@ -15,6 +16,8 @@ const INITIAL_STATE = {
     loading: false,
     user: null,
     loginError: false,
+    code: null,
+    smsCode: ''
 }
 export default (state = INITIAL_STATE, action) => {
     switch(action.type) {
@@ -30,11 +33,16 @@ export default (state = INITIAL_STATE, action) => {
             return {...state,
                 loginError: false,
                 email: action.payload};
+        case REGISTER_CHANGE_CODE:
+            return {...state,
+                loginError: false,
+                smsCode: action.payload};
         case REGISTER_SUCCESS:
             return {
                 ...state,
                 error: false,
-                loading: false
+                loading: false,
+                code: action.payload.code
             }
         case REGISTER_ERROR:
             return {
