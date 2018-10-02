@@ -1,17 +1,17 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Image} from 'react-native';
 
 const FeedbackComponent = () => {
     return (
         <View style={{
             width: '100%',
-            height: 100,
+            height: 120,
             borderBottomWidth: 1,
             borderColor: '#1f1f1f',
             justifyContent: 'space-between',
             alignItems: 'center',
             paddingLeft: 20,
-            paddingRight: 10,
+            padding: 10,
         }}>
             <View style={{
                 flexDirection: 'row',
@@ -56,9 +56,15 @@ const FeedbackComponent = () => {
                 justifyContent: 'flex-start',
                 alignItems: 'center'
             }}>
-                <Text>
-                    ****
-                </Text>
+                <Image
+                    source={require('../../img/icons/start_full.png')}
+                />
+                <Image
+                    source={require('../../img/icons/start_full.png')}
+                />
+                <Image
+                    source={require('../../img/icons/start_full.png')}
+                />
             </View>
         </View>
     )

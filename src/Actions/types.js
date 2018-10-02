@@ -30,3 +30,10 @@ export const RESTAURANTS_INFO_LOADING_SUCCESS = 'restaurants_info_loading_succes
 /*MENU*/
 export const RESTAURANTS_MENU_LOADED = 'restaurants_menu_loaded';
 export const RESTAURANTS_MENU_LOADING = 'restaurants_menu_loading';
+
+/*FEEDBACK*/
+export const FEEDBACKS_LIST_LOADING = 'feedbacks_list_loading';
+export const FEEDBACKS_LIST_LOADING_SUCCESS = 'feedbacks_list_loading_success';
+export const FEEDBACK_CHANGE_MESSAGE = 'feedback_change_message';
+export const SEND_FEEDBACK = 'send_feedback';
+export const SEND_FEEDBACK_SUCCESS = 'send_feedback_success';

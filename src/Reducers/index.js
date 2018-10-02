@@ -4,6 +4,7 @@ import RegisterReducer from './RegisterReducer';
 import LocationsReducer from './LocationsReducer';
 import RestaurantsReducer from './RestaurantsReducer';
 import MenuReducer from './MenuReducer';
+import FeedbacksReducer from './FeedbacksReducer';
 import { NavigationActions } from 'react-navigation';
 import { RootNavigator } from '../navigators/AppNavigator';
 
@@ -78,5 +79,6 @@ export default combineReducers({
     restaurants: RestaurantsReducer,
     locations: LocationsReducer,
     menu: MenuReducer,
+    feedbacks: FeedbacksReducer,
     nav: nav,
 })

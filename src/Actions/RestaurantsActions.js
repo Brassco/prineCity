@@ -10,7 +10,7 @@ import {
     AUTH_LOGOUT
 } from './types';
 import {LOCATION, LIST, CATEGORIES, DISHES} from '../urls';
-import {serverService} from './serverService';
+import {serverGET} from './serverService';
 
 export const getLocation = (token, errorCallback) => {
     return (dispatch) => {
@@ -19,7 +19,7 @@ export const getLocation = (token, errorCallback) => {
             type: LOCATION_LIST_LOADING,
         })
         console.log('get location', tokenString)
-        let res = serverService(
+        let res = serverGET(
             LOCATION,
             'GET',
             { 'Authorization': tokenString}
@@ -73,7 +73,7 @@ console.log('getRestaurantsList', LIST+'&district_id='+district_id, tokenString)
         dispatch({
             type: RESTAURANTS_LIST_LOADING,
         })
-        let res = serverService(
+        let res = serverGET(
             LIST+'?district_id='+district_id,
             'GET',
             { 'Authorization': tokenString}
@@ -127,7 +127,7 @@ console.log('getRestaurants Info', LIST+'/'+restaurant_id, tokenString);
         dispatch({
             type: RESTAURANTS_INFO_LOADING,
         })
-        let res = serverService(
+        let res = serverGET(
             LIST+'/'+restaurant_id,
             'GET',
             { 'Authorization': tokenString}
@@ -217,7 +217,7 @@ export const getRestaurantsMenu = (token, category_id, errorCallback) => {
         dispatch({
             type: RESTAURANTS_MENU_LOADING,
         })
-        let res = serverService(
+        let res = serverGET(
             DISHES+'?category_id='+category_id,
             'GET',
             { 'Authorization': tokenString}

@@ -59,8 +59,11 @@ console.log(navigation.state.params.id);
         getRestaurantsInfo(token, navigation.state.params.id, this.onError);
     }
 
-    openFeedbacks = () => {
-        this.props.navigation.dispatch({ type: 'Feedbacks' })
+    openFeedbacks = (restaurant) => {
+        // this.props.navigation.dispatch({ type: 'Feedbacks' })
+        this.props.navigation.dispatch(
+            NavigationActions.navigate({ routeName: 'Feedbacks',  params: { restaurant_id: restaurant.id} })
+        )
     }
 
     openMenu = (category) => {
@@ -120,7 +123,7 @@ console.log(imgSrc, restaurant);
                             alignItems: 'center',
                         }}>
                             <TouchableOpacity
-                                onPress={this.openFeedbacks}
+                                onPress={() => this.openFeedbacks(restaurant)}
                                 style={textContainer}>
                                 <Text style={feedbackText}>
                                     Отзывы
