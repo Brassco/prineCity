@@ -5,6 +5,7 @@ import LocationsReducer from './LocationsReducer';
 import RestaurantsReducer from './RestaurantsReducer';
 import MenuReducer from './MenuReducer';
 import FeedbacksReducer from './FeedbacksReducer';
+import BasketReducer from './BasketReducer';
 import { NavigationActions } from 'react-navigation';
 import { RootNavigator } from '../navigators/AppNavigator';
 
@@ -80,5 +81,6 @@ export default combineReducers({
     locations: LocationsReducer,
     menu: MenuReducer,
     feedbacks: FeedbacksReducer,
+    basket: BasketReducer,
     nav: nav,
 })

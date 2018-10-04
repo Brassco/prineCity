@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, TouchableOpacity} from 'react-native';
 import {Container, Header} from '../common';
 import { ListItem } from "react-native-elements"
 import {getRestaurantsMenu} from '../../Actions/RestaurantsActions';
+import {onAddToBasket} from '../../Actions/OrderAction';
 import {connect} from 'react-redux';
 import {NavigationActions} from 'react-navigation';
 
@@ -36,6 +37,7 @@ class Menu extends Component {
             ]
         };
         this.onError = this.onError.bind(this)
+        this.onAddToBasket = this.onAddToBasket.bind(this)
     }
 
     componentDidMount() {
@@ -47,6 +49,11 @@ class Menu extends Component {
         this.props.navigation.dispatch(
             NavigationActions.navigate({ routeName: 'Login'})
         )
+    }
+
+    onAddToBasket(item) {
+        console.log('onAddToBasket', item);
+        this.props.onAddToBasket(item)
     }
 
     render () {
@@ -68,7 +75,7 @@ class Menu extends Component {
                         width: '100%',
                     }}
                     keyExtractor={item => item.id}
-                    data={this.props.menu}
+                    data={this.state.data}
                     renderItem={({item}) => {
                         return (<ListItem
                             roundAvatar
@@ -92,12 +99,11 @@ class Menu extends Component {
                             }
                             subtitle={
                                 <View style={{
-
                                     flexDirection: 'row',
                                     justifyContent: 'space-between',
                                     alignItems: 'center',
                                 }}>
-                                    <View style={{
+                                    <TouchableOpacity style={{
                                         // width: 70,
                                         padding: 5,
                                         paddingLeft: 10,
@@ -106,9 +112,11 @@ class Menu extends Component {
                                         marginTop: 10,
                                         borderRadius: 2,
                                         backgroundColor: '#da5a22'
-                                    }}>
+                                    }}
+                                       onPress={() => this.onAddToBasket(item)}
+                                    >
                                         <Text style={orderText}>Добавить</Text>
-                                    </View>
+                                    </TouchableOpacity>
                                     <View style={{
                                         marginRight: 5,
                                         flexDirection: 'row',
@@ -158,14 +166,15 @@ const styles = {
     }
 }
 
-const mapStateToProps= ({auth, menu}) => {
+const mapStateToProps= ({auth, menu, basket}) => {
     return {
         token: auth.token,
         user: auth.user,
         loading: menu.loading,
         error: menu.error,
         menu: menu.menu,
+        basket: basket.basket
     }
 }
 
-export default connect(mapStateToProps, {getRestaurantsMenu})(Menu);
+export default connect(mapStateToProps, {getRestaurantsMenu, onAddToBasket})(Menu);

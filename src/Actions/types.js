@@ -37,3 +37,7 @@ export const FEEDBACKS_LIST_LOADING_SUCCESS = 'feedbacks_list_loading_success';
 export const FEEDBACK_CHANGE_MESSAGE = 'feedback_change_message';
 export const SEND_FEEDBACK = 'send_feedback';
 export const SEND_FEEDBACK_SUCCESS = 'send_feedback_success';
+
+export const ADD_TO_BASKET = 'add_to_basket';
+export const REMOVE_FROM_BASKET = 'remove_from_basket';
+export const MAKE_ORDER = 'make_order';
