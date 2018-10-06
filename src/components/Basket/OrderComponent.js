@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {View, TextInput, Text, ScrollView, TouchableOpacity, Dimensions} from 'react-native';
-import {Container, Header, TextInputContainer} from '../common';
+import {Container} from '../common';
+import Header from '../common/Header';
 import BasketItem from './BasketItem';
 
 let {width, height} = Dimensions.get('window');

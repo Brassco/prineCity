@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {FlatList, ActivityIndicator} from 'react-native';
 import {NavigationActions} from 'react-navigation';
-import {Container, Header} from '../common';
+import {Container} from '../common';
 import { ListItem } from "react-native-elements"
 import {connect} from 'react-redux';
 import {BASE_URL} from '../../urls';
 import {getRestaurantsList} from '../../Actions/RestaurantsActions';
+import Header from '../common/Header';
 
 class Restaurants extends Component {
 
@@ -69,9 +70,11 @@ class Restaurants extends Component {
         if (this.props.loading) {
             return <ActivityIndicator />
         } else {
+            let {navigation} = this.props;
             return (
                 <Container>
                     <Header
+                        navigation={navigation}
                         onBackPressed={() => this.props.navigation.goBack()}
                         title={this.props.navigation.state.params.district_name}
                     />

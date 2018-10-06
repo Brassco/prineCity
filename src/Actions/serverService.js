@@ -10,7 +10,8 @@ export const serverGET = (url, method, headers) => {
             }
         )
             .then((response) => {
-                if (response.status == 401) {
+console.log('response ', url, method, response);
+                if (response.status != 200) {
                     AsyncStorage.clear(reject())
                 } else {
                     resolve(response.json());

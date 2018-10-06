@@ -18,7 +18,6 @@ export const getLocation = (token, errorCallback) => {
         dispatch({
             type: LOCATION_LIST_LOADING,
         })
-        console.log('get location', tokenString)
         let res = serverGET(
             LOCATION,
             'GET',
@@ -26,7 +25,6 @@ export const getLocation = (token, errorCallback) => {
         )
         res.then(
             responseJson => {
-                console.log('getLocation', responseJson);
                 onLocationLoaded(dispatch, responseJson.data);
             },
             error => {
@@ -37,25 +35,6 @@ export const getLocation = (token, errorCallback) => {
                 errorCallback();
             }
         );
-        // fetch(
-        //     LOCATION,
-        //     {
-        //         method: 'GET',
-        //         headers: {
-        //             // 'Host': 'https://pc.s1l3nt.xyz',
-        //             'Authorization': tokenString,
-        //         },
-        //     }
-        // )
-        //     .then((response) => {
-        //         console.log(response);
-        //         return response.json()
-        //     })
-        //     .then((responseJson) => {
-        //         console.log('getLocation', responseJson);
-        //         onLocationLoaded(dispatch, responseJson.data);
-        //     })
-        //     .catch( err => console.log(err))
     }
 }
 
@@ -91,25 +70,6 @@ console.log('getRestaurantsList', LIST+'&district_id='+district_id, tokenString)
                 errorCallback();
             }
         );
-        // fetch(
-        //     LIST+'?district_id='+district_id,
-        //     {
-        //         method: 'GET',
-        //         headers: {
-        //             // 'Host': 'https://pc.s1l3nt.xyz',
-        //             'Authorization': tokenString,
-        //         },
-        //     }
-        // )
-        //     .then((response) => {
-        //         console.log(response);
-        //         return response.json()
-        //     })
-        //     .then((responseJson) => {
-        //         console.log('getRestaurantsList', responseJson);
-        //         onRestaurantsLoaded(dispatch, responseJson.data);
-        //     })
-        //     .catch( err => console.log(err))
     }
 }
 
@@ -160,41 +120,6 @@ console.log('getRestaurants Info', LIST+'/'+restaurant_id, tokenString);
                 errorCallback();
             }
         );
-//         fetch(
-//             LIST+'/'+restaurant_id,
-//             {
-//                 method: 'GET',
-//                 headers: {
-//                     // 'Host': 'https://pc.s1l3nt.xyz',
-//                     'Authorization': tokenString,
-//                 },
-//             }
-//         )
-//             .then((response) => {
-//                 console.log(response);
-//                 return response.json()
-//             })
-//             .then((responseJson) => {
-// console.log('restaurant info', responseJson);
-//                 fetch(
-//                     CATEGORIES+'?restaurant_id='+restaurant_id,
-//                     {
-//                         method: 'GET',
-//                         headers: {
-//                             // 'Host': 'https://pc.s1l3nt.xyz',
-//                             'Authorization': tokenString,
-//                         },
-//                     }
-//                 )
-//                     .then((responseCategories) => {
-//                         return responseCategories.json()
-//                     })
-//                     .then((categories) => {
-//                         onInfoLoaded(dispatch, responseJson.data, categories.data);
-//                     })
-//                 // onInfoLoaded(dispatch, responseJson.data);
-//             })
-//             .catch( err => console.log(err))
     }
 }
 
@@ -235,25 +160,6 @@ export const getRestaurantsMenu = (token, category_id, errorCallback) => {
                 errorCallback();
             }
         );
-        // fetch(
-        //     DISHES+'?category_id='+category_id,
-        //     {
-        //         method: 'GET',
-        //         headers: {
-        //             // 'Host': 'https://pc.s1l3nt.xyz',
-        //             'Authorization': tokenString,
-        //         },
-        //     }
-        // )
-        //     .then((response) => {
-        //         console.log(response);
-        //         return response.json()
-        //     })
-        //     .then((responseJson) => {
-        //         console.log('restaurant menu', responseJson);
-        //         onMenuLoaded(dispatch, responseJson.data);
-        //     })
-        //     .catch( err => console.log(err))
     }
 }
 

@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {FlatList, View, Text, ActivityIndicator, Image, Dimensions, TouchableOpacity} from 'react-native';
-import {Container, Header} from '../common';
+import {Container} from '../common';
 import { ListItem } from "react-native-elements"
 import {connect} from 'react-redux';
 import {getRestaurantsInfo} from '../../Actions/RestaurantsActions';
 import {BASE_URL} from '../../urls';
 import {NavigationActions} from 'react-navigation';
+import Header from '../common/Header';
 
 let {width, height} = Dimensions.get('window');
 
@@ -55,7 +56,6 @@ class Details extends Component {
 
     componentDidMount() {
         let {token, getRestaurantsInfo, navigation} = this.props;
-console.log(navigation.state.params.id);
         getRestaurantsInfo(token, navigation.state.params.id, this.onError);
     }
 
@@ -79,11 +79,9 @@ console.log(navigation.state.params.id);
     }
 
     render() {
-console.log('render details', this.props);
         if (this.props.restaurant) {
-            let {restaurant} = this.props;
+            let {restaurant, navigation} = this.props;
             let imgSrc = BASE_URL + restaurant.background_image;
-console.log(imgSrc, restaurant);
             let {
                 feedbackText, feedbackCounter,
                 ratingCounterContainer, ratingText,
@@ -93,6 +91,7 @@ console.log(imgSrc, restaurant);
             return (
                 <Container>
                     <Header
+                        navigation={navigation}
                         onBackPressed={() => this.props.navigation.goBack()}
                         title={restaurant.name}
                     />

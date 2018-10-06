@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {View, Text, FlatList} from 'react-native';
-import {Container, Header} from '../common';
+import {Container} from '../common';
 import { ListItem } from "react-native-elements";
 import {getLocation} from '../../Actions/RestaurantsActions';
 import {connect} from 'react-redux';
 import {BASE_URL} from '../../urls';
 import {NavigationActions} from 'react-navigation';
+import Header from '../common/Header';
 
 class List extends Component {
 
@@ -42,9 +43,11 @@ class List extends Component {
 
     render() {
         console.log('render restaurants', this.props.locations)
+        let {navigation, locations} = this.props;
         return (
             <Container>
                 <Header
+                    navigation={navigation}
                     title={'Выберите свой ЖК'}
                 />
                 <FlatList
@@ -52,7 +55,7 @@ class List extends Component {
                     width: '100%',
                 }}
                     keyExtractor={item => item.id.toString()}
-                    data={this.props.locations}
+                    data={locations}
                     renderItem={({item}) => {
                         console.log(item)
                         let imgSrc = BASE_URL + item.logo;

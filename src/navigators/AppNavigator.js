@@ -17,6 +17,7 @@ import Menu from '../components/Restaurants/Menu';
 import FeedbacksList from '../components/Feedbacks/FeedbacksList';
 import AuthLoadingScreen from '../components/AuthLoadingScreen';
 import OrderComponent from '../components/Basket/OrderComponent';
+import DishesDetails from '../components/Restaurants/DishesDetails';
 
 const middleware = createReactNavigationReduxMiddleware(
     'root',
@@ -33,6 +34,7 @@ const RootNavigator = createStackNavigator({
     Menu: { screen: Menu},
     Feedbacks: { screen: FeedbacksList},
     Orders: { screen: OrderComponent},
+    DishesDetails: { screen: DishesDetails},
 });
 
 const AppWithNavigationState = reduxifyNavigator(RootNavigator, 'root');

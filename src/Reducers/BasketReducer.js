@@ -6,6 +6,7 @@ import {
 
 const INITIAL_STATE = {
     basket: [],
+    basketCount: 0,
     restaurant: null,
     categories: [],
     error: false,
@@ -15,6 +16,7 @@ export default (state = INITIAL_STATE, action) => {
     switch(action.type) {
         case ADD_TO_BASKET:
             let newBasket = state.basket;
+            let cnt = state.basketCount;
             if (newBasket.length) {
                 let isNewRow = true;
                 for (var i = 0; i < newBasket.length; i++) {
@@ -26,17 +28,22 @@ export default (state = INITIAL_STATE, action) => {
                     }
                 }
                 if (isNewRow) {
+                    console.log('increase count', cnt);
+                    cnt = cnt+1;
                     newBasket.push({id: action.payload.id, counter: 1, product: action.payload})
                 }
             } else {
+                console.log('increase count', cnt);
+                cnt = cnt+1;
                 newBasket.push({id: action.payload.id, counter: 1, product: action.payload})
             }
-console.log('ADD_TO_BASKET ', state, newBasket);
+console.log('ADD_TO_BASKET ', newBasket, cnt);
             return {
                 ...state,
                 error: false,
                 loading: false,
-                basket: newBasket
+                basket: newBasket,
+                basketCount: cnt,
             };
         case REMOVE_FROM_BASKET:
             let copyBasket = state.basket.slice();

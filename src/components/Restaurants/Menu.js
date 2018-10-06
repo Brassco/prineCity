@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {View, Text, FlatList, TouchableOpacity} from 'react-native';
-import {Container, Header} from '../common';
+import {Container} from '../common';
 import { ListItem } from "react-native-elements"
 import {getRestaurantsMenu} from '../../Actions/RestaurantsActions';
 import {onAddToBasket} from '../../Actions/OrderAction';
 import {connect} from 'react-redux';
 import {NavigationActions} from 'react-navigation';
+import Header from '../common/Header';
 
 class Menu extends Component {
 
@@ -19,25 +20,34 @@ class Menu extends Component {
             error: null,
             data: [
                 {
-                    "name": "Proxima Midnight",
-                    "id": "proxima@appdividend.com"
+                    "id": '1',
+                    "name": "Dish #1",
+                    "image": "/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBaQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--a387f247bfaf17e462c2b40d3a043479ab3a13ac/photo.jpg",
+                    "description": "Tasty dish Tasty dish дщкуь шзігь вщдщк Tasty dish Tasty dish дщкуь шзігь вщдщк  Tasty dish Tasty dish дщкуь шзігь вщдщк Tasty dish Tasty dish дщкуь шзігь вщдщк  Tasty dish Tasty dish дщкуь шзігь вщдщк ",
+                    "price": "100.0",
+                    "weight": "200g"
                 },
                 {
-                    "name": "Ebony Maw",
-                    "id": "ebony@appdividend.com"
+                    "id": '2',
+                    "name": "Dish #2",
+                    "image": "/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBaQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--a387f247bfaf17e462c2b40d3a043479ab3a13ac/photo.jpg",
+                    "description": "Tasty dish",
+                    "price": "100.0",
+                    "weight": "200g"
                 },
                 {
-                    "name": "Black Dwarf",
-                    "id": "dwarf@appdividend.com"
-                },
-                {
-                    "name": "Mad Titan",
-                    "id": "thanos@appdividend.com"
+                    "id": '3',
+                    "name": "Dish #3",
+                    "image": "/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBaQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--a387f247bfaf17e462c2b40d3a043479ab3a13ac/photo.jpg",
+                    "description": "Tasty dish",
+                    "price": "100.0",
+                    "weight": "200g"
                 },
             ]
         };
         this.onError = this.onError.bind(this)
         this.onAddToBasket = this.onAddToBasket.bind(this)
+        this.onOpenDishesDetails = this.onOpenDishesDetails.bind(this)
     }
 
     componentDidMount() {
@@ -56,12 +66,20 @@ class Menu extends Component {
         this.props.onAddToBasket(item)
     }
 
+    onOpenDishesDetails(dishes) {
+        this.props.navigation.dispatch(
+            NavigationActions.navigate({ routeName: 'DishesDetails', params: { dishes: dishes}})
+        )
+    }
+
     render () {
         console.log('render menu', this.props);
         let {titleTextContainer, titleText, orderText} = styles;
+        let {navigation} = this.props;
         return (
             <Container>
                 <Header
+                    navigation={navigation}
                     onBackPressed={() => this.props.navigation.goBack()}
                     title="Меню"
                 />
@@ -78,6 +96,7 @@ class Menu extends Component {
                     data={this.state.data}
                     renderItem={({item}) => {
                         return (<ListItem
+                            onPress={() => this.onOpenDishesDetails(item)}
                             roundAvatar
                             hideChevron
                             avatarContainerStyle={{
