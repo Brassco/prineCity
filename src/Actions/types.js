@@ -38,6 +38,16 @@ export const FEEDBACK_CHANGE_MESSAGE = 'feedback_change_message';
 export const SEND_FEEDBACK = 'send_feedback';
 export const SEND_FEEDBACK_SUCCESS = 'send_feedback_success';
 
+/*BASKET*/
 export const ADD_TO_BASKET = 'add_to_basket';
 export const REMOVE_FROM_BASKET = 'remove_from_basket';
+
+/*ORDER*/
 export const MAKE_ORDER = 'make_order';
+export const ORDER_CHANGE_ADDRESS = 'order_change_address';
+export const ORDER_CHANGE_DATE = 'order_change_date';
+export const ORDER_CHANGE_TIME = 'order_change_time';
+export const ORDER_CHANGE_FLOOR = 'order_change_floor';
+export const ORDER_CHANGE_ENTRANCE = 'order_change_entrance';
+export const ORDER_CHANGE_COMENT = 'order_change_coment';
+export const ORDER_CHANGE_FLAT = 'order_change_flat';

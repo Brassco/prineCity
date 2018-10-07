@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
+import CounterButtonComponent from './CounterButtonComponent';
 
 class BasketItem extends Component {
 
@@ -7,8 +8,57 @@ class BasketItem extends Component {
         header: null,
     };
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            item: null
+        }
+        this.onAddToBasket = this.onAddToBasket.bind(this)
+        this.onDeleteFromBasket = this.onDeleteFromBasket.bind(this)
+    }
+
+    static getDerivedStateFromProps(props, state) {
+
+        console.log('getDerivedStateFromProps');
+
+        if (props.item !== state.item) {
+            return {
+                item: props.item,
+            };
+        }
+
+        return null;
+    }
+
+    onAddToBasket(item) {
+        let itemCopy = {...item};
+        itemCopy.counter = item.counter+1;
+        itemCopy.amount = item.counter* parseFloat(item.price);
+        this.setState({
+            item: itemCopy
+        })
+        this.props.onAddToBasket(item)
+    }
+
+    onDeleteFromBasket(item) {
+        let itemCopy = {...item};
+        if (item.counter-1 >= 1) {
+            itemCopy.counter = item.counter - 1;
+            itemCopy.amount = item.counter * parseFloat(item.price);
+            this.setState({
+                item: itemCopy
+            })
+        } else {
+            this.setState({
+                item: null
+            })
+        }
+        this.props.onDeleteFromBasket(item)
+    }
+
     render() {
-        console.log('render basket item')
+console.log('render basket item', this.state);
+        let {item} = this.state;
         return (
             <View style={{
                 width: '100%',
@@ -27,13 +77,21 @@ class BasketItem extends Component {
                     flex: 1
                 }}>
                     <View>
-                        <Text>
-                            Хумус класический
+                        <Text style={{
+                            fontSize: 19,
+                            fontWeight: '400',
+                            color: '#1f1f1f'
+                        }}>
+                            {item.name}
                         </Text>
                     </View>
                     <View>
-                        <Text>
-                            вес 280 грамм
+                        <Text style={{
+                            fontSize: 14,
+                            fontWeight: '400',
+                            color: '#b3b3aa'
+                        }}>
+                            вес {item.weight}
                         </Text>
                     </View>
                 </View>
@@ -44,22 +102,33 @@ class BasketItem extends Component {
                     alignItems: 'center',
                     // backgroundColor: '#189'
                 }}>
+                    <CounterButtonComponent
+                        onIncrease={() => {
+                            this.onAddToBasket(item)
+                        }}
+                        onDecrease={() => this.onDeleteFromBasket(item)}
+                        counter={item.counter}
+                    />
                     <View style={{
                         flex: 1,
-                        justifyContent: 'center',
-                        alignItems: 'flex-start'
-                    }}>
-                        <Text>
-                            125
-                        </Text>
-                    </View>
-                    <View style={{
-                        flex: 1,
-                        justifyContent: 'center',
+                        flexDirection: 'row',
+                        justifyContent: 'flex-end',
                         alignItems: 'flex-end'
                     }}>
-                        <Text>
-                            350$
+                        <Text style={{
+                            fontSize: 18,
+                            fontWeight: '400',
+                            color: '#b92320',
+                            marginRight: 5
+                        }}>
+                            {item.amount}
+                        </Text>
+                        <Text style={{
+                            fontSize: 20,
+                            fontWeight: '400',
+                            color: '#1f1f1f'
+                        }}>
+                            $
                         </Text>
                     </View>
                 </View>
