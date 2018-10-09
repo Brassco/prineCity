@@ -21,27 +21,25 @@ class FeedbacksList extends Component {
         super();
         this.state = {
             error: null,
-            messages: [
+            "reviews": [
                 {
-                    "id": "1",
-                    "name": "District #1",
-                    "logo": '../../img/loc-img.png'
+                    "id":"1",
+                    "review": "Nice!",
+                    "client_name": "Client",
+                    "created_at": "2018-09-18T10:00:24.879Z"
                 },
                 {
-                    "id": "2",
-                    "name": "District #2",
-                    "logo": '../../img/loc-img.png'
+                    "id":"2",
+                    "review": "Nice!",
+                    "client_name": "Client",
+                    "created_at": "2018-09-18T10:00:24.879Z"
                 },
                 {
-                    "id": "3",
-                    "name": "District #3",
-                    "logo": '../../img/loc-img.png'
-                },
-                {
-                    "id": "4",
-                    "name": "District #4",
-                    "logo": '../../img/loc-img.png'
-                },
+                    "id":"3",
+                    "review": "Nice!",
+                    "client_name": "Client",
+                    "created_at": "2018-09-18T10:00:24.879Z"
+                }
             ]
         };
         this.onError = this.onError.bind(this);
@@ -145,7 +143,7 @@ console.log('onSendFeedback', token, navigation.state.params.restaurant_id, mess
                             width: '100%',
                         }}
                         keyExtractor={item => item.id}
-                        data={this.props.feedbacks}
+                        data={this.state.reviews}
                         renderItem={({item}) => {
                             return (<FeedbackComponent />)
                         }}
