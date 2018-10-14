@@ -53,7 +53,6 @@ export const onRegister = (data) => {
             onError(dispatch, 'Укажите email');
             return;
         }
-        console.log('onRegister', data, data.name.length, data.phone_number.length, data.email.length);
         if (data.name.length && data.phone_number.length && data.email.length) {
             var formBody = [];
             for (var property in data) {
@@ -62,7 +61,6 @@ export const onRegister = (data) => {
                 formBody.push(encodedKey + "=" + encodedValue);
             }
             formBody = formBody.join("&");
-        console.log(formBody);
             fetch(
                 SIGN_UP,
                 {
@@ -75,13 +73,11 @@ export const onRegister = (data) => {
                 }
             )
                 .then((response) => {
-                    console.log(response);
                     if (response.status == 200) {
                         return response.json()
                     }
                 })
                 .then((responseJson) => {
-                console.log(responseJson)
                     if (responseJson) {
                         onRegisterSuccess(dispatch, responseJson.data);
                     } else {
@@ -94,7 +90,6 @@ export const onRegister = (data) => {
 }
 
 const onRegisterSuccess = (dispatch, data) => {
-    console.log(data);
     dispatch({
         type: REGISTER_SUCCESS,
         payload: data

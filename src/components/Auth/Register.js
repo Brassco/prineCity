@@ -73,7 +73,6 @@ class Register extends Component {
     }
 
     onRegisterSuccess() {
-        console.log('onRegisterSuccess');
         this.props.navigation.dispatch({ type: 'Login' })
     }
 
@@ -100,7 +99,6 @@ class Register extends Component {
             loginTextContainer, titleText,
             errorTextContainer, errorText, loginText
         } = styles;
-        console.log('render', this.props)
         return (
             <Container style={{
                 justifyContent: 'space-between'

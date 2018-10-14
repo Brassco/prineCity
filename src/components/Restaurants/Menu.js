@@ -62,7 +62,6 @@ class Menu extends Component {
     }
 
     onAddToBasket(item) {
-        console.log('onAddToBasket', item);
         this.props.onAddToBasket(item)
     }
 
@@ -73,7 +72,6 @@ class Menu extends Component {
     }
 
     render () {
-        console.log('render menu', this.props);
         let {titleTextContainer, titleText, orderText} = styles;
         let {navigation} = this.props;
         return (

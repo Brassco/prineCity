@@ -6,7 +6,6 @@ import {
 
 
 export const onAddToBasket = (item) => {
-console.log('ADD_TO_BASKET', item);
     return {
         type: ADD_TO_BASKET,
         payload: item
@@ -14,7 +13,6 @@ console.log('ADD_TO_BASKET', item);
 }
 
 export const onDeleteFromBasket = (item) => {
-console.log('REMOVE_FROM_BASKET', item);
     return {
         type: REMOVE_FROM_BASKET,
         payload: item

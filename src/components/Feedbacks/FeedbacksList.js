@@ -50,7 +50,6 @@ class FeedbacksList extends Component {
 
     componentDidMount() {
         let {token, navigation, getFeedbacks} = this.props;
-        console.log(token, navigation.state.params.restaurant_id);
         getFeedbacks(token, navigation.state.params.restaurant_id, this.onError);
     }
 
@@ -62,7 +61,6 @@ class FeedbacksList extends Component {
 
     onSendFeedback() {
         let {message, token, navigation} = this.props;
-console.log('onSendFeedback', token, navigation.state.params.restaurant_id, message);
         this.props.onSendFeedback(token, navigation.state.params.restaurant_id, message, this.onError)
     }
 
@@ -75,7 +73,6 @@ console.log('onSendFeedback', token, navigation.state.params.restaurant_id, mess
     }
 
     render() {
-        console.log('render feedbacks', this.props);
         let {headerContainer, closeButtonContainer, headerTextContainer,
             headerText, reviewFormContainer, textInputContainerWrapper,
             textInputStyle, buttonStyle} = styles;

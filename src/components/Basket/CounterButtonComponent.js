@@ -8,7 +8,6 @@ class CounterButtonComponent extends React.Component{
     // }
 
     render() {
-        console.log(this.props);
         let {onDecrease, onIncrease, counter} = this.props;
         let {container, textStyle, button} = styles;
         return (

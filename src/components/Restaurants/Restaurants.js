@@ -50,7 +50,6 @@ class Restaurants extends Component {
 
     componentDidMount() {
         let {token, getRestaurantsList, navigation} = this.props;
-        console.log(navigation.state.params.district_id);
         getRestaurantsList(token, navigation.state.params.district_id, this.onError);
     }
 

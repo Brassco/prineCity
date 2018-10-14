@@ -15,7 +15,6 @@ export const getFeedbacks = (token, restaurant_id, errorCallback) => {
         dispatch({
             type: FEEDBACKS_LIST_LOADING,
         })
-        console.log('get location', tokenString)
         let res = serverGET(
             LIST+'/'+restaurant_id+'/reviews',
             'GET',
@@ -23,11 +22,9 @@ export const getFeedbacks = (token, restaurant_id, errorCallback) => {
         )
         res.then(
             responseJson => {
-                console.log('get Feedbacks', responseJson);
                 onFeedbacksLoaded(dispatch, responseJson.data);
             },
             error => {
-                console.log('onError');
                 dispatch({
                     type: AUTH_LOGOUT,
                 })
@@ -54,7 +51,6 @@ export const onChangeMessage = (text) => {
 export const onSendFeedback = (token, restaurant_id, text, errorCallback) => {
     return (dispatch) => {
         let tokenString = `Bearer ${token}`;
-console.log('onSendFeedback ', LIST+'/'+restaurant_id, tokenString);
         dispatch({
             type: SEND_FEEDBACK,
         })
@@ -69,11 +65,9 @@ console.log('onSendFeedback ', LIST+'/'+restaurant_id, tokenString);
         )
         res.then(
             responseJson => {
-                console.log('send feedback', responseJson);
                 onFeedbackSended(dispatch, responseJson.data);
             },
             error => {
-                console.log('onError');
                 dispatch({
                     type: AUTH_LOGOUT,
                 })
@@ -84,7 +78,6 @@ console.log('onSendFeedback ', LIST+'/'+restaurant_id, tokenString);
 }
 
 const onFeedbackSended = (dispatch, response) => {
-    console.log('SEND_FEEDBACK_SUCCESS', response);
     dispatch({
         type: SEND_FEEDBACK_SUCCESS,
         payload: response

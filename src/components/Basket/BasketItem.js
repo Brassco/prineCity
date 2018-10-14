@@ -19,8 +19,6 @@ class BasketItem extends Component {
 
     static getDerivedStateFromProps(props, state) {
 
-        console.log('getDerivedStateFromProps');
-
         if (props.item !== state.item) {
             return {
                 item: props.item,
@@ -57,7 +55,6 @@ class BasketItem extends Component {
     }
 
     render() {
-console.log('render basket item', this.state);
         let {item} = this.state;
         return (
             <View style={{

@@ -42,7 +42,6 @@ class List extends Component {
     }
 
     render() {
-        console.log('render restaurants', this.props.locations)
         let {navigation, locations} = this.props;
         return (
             <Container>
@@ -57,7 +56,6 @@ class List extends Component {
                     keyExtractor={item => item.id.toString()}
                     data={locations}
                     renderItem={({item}) => {
-                        console.log(item)
                         let imgSrc = BASE_URL + item.logo;
                         return (<ListItem
                             onPress={() => this.openRestaurantsList(item)}

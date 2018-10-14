@@ -58,11 +58,9 @@ class DishesDetails extends Component {
 
     componentDidMount() {
         let {navigation} = this.props;
-console.log(navigation.state.params);
     }
 
     onAddToBasket(item) {
-        console.log('onAddToBasket', item);
         this.props.onAddToBasket(item)
     }
 
@@ -129,7 +127,7 @@ console.log(navigation.state.params);
                 }}>
                     <View>
                         <Text style={totalText}>
-                            И того к оплате:
+                            Итого к оплате:
                         </Text>
                     </View>
                     <View style={amountBlock}>

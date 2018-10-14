@@ -43,7 +43,6 @@ class Login extends Component {
     }
 
     onLoginSuccess() {
-        console.log('onLoginSuccess');
         this.props.navigation.dispatch({ type: 'Login' })
     }
 

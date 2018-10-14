@@ -28,7 +28,6 @@ export const onLogin = (data, successCallback) => {
             type: AUTH_SIGN_IN_START,
         })
 
-        console.log(data.phone_number.length, data.password.length)
         if (data.phone_number.length < 1) {
             onLoginFail(dispatch, 'Укажите номер телефона')
         } else if (data.password.length < 1) {
@@ -53,7 +52,6 @@ export const onLogin = (data, successCallback) => {
                 }
             )
                 .then((response) => {
-                    console.log(response);
                     if (response.status == 200) {
                         return response.json()
                     }
@@ -75,14 +73,12 @@ const onLoginSuccess = (dispatch, data, successCallback) => {
         type: AUTH_SIGN_IN_SUCCESS,
         payload: data
     })
-console.log('onLogin syccess', JSON.stringify(data));
     AsyncStorage.setItem('@user', JSON.stringify(data)).then(
         successCallback()
     )
 }
 
 const onLoginFail = (dispatch, errMessage) => {
-console.log('onLoginFail');
     dispatch({
         type: AUTH_SIGN_IN_FAIL,
         payload: errMessage
@@ -90,7 +86,6 @@ console.log('onLoginFail');
 }
 
 export const setUserFromStore = (data) => {
-    console.log('setUserFromStore', JSON.parse(data))
     return ({
         type: AUTH_SIGN_IN_SUCCESS,
         payload: JSON.parse(data)

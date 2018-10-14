@@ -15,20 +15,7 @@ class OrderComponent extends Component {
         header: null,
     };
 
-    componentWillUpdate(props) {
-        console.log('componentWillUpdate', props)
-    }
-
-    componentWillReceiveProps(props) {
-        console.log('componentWillReceiveProps', props)
-    }
-
-    componentDidUpdate(state) {
-        console.log('componentDidUpdate', state);
-    }
-
     render() {
-        console.log('render order component', this.props.basket);
         let {container, addressText, addressTextContainer, formContainer,
             addressContainer, dateTimeContainer, dateContainer, timeContainer,
             dateTimeText
@@ -227,7 +214,6 @@ const styles = {
 }
 
 let mapStateToProps = ({basket}) => {
-    console.log('mapStateToProps', basket.basket);
     return {
         basket: basket.basket
     }
