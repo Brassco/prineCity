@@ -2,7 +2,7 @@ import {
     ADD_TO_BASKET,
     REMOVE_FROM_BASKET,
     MAKE_ORDER
-} from '../Actions/types';
+} from '../../Actions/types';
 
 const INITIAL_STATE = {
     basket: [],
